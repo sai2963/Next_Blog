@@ -1,16 +1,16 @@
-'use client'
-import React, { useState, useEffect } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../../../firebase/clientApp';
+"use client";
+import { useState, useEffect } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../../firebase/clientApp";
 
-const PremiumPostsPage = () => {
+const GetPosts = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const postsRef = collection(db, 'posts');
-      const querySnapshot = await getDocs(postsRef);
-      const postData = querySnapshot.docs.map((doc) => ({
+      const postRef = collection(db, "posts");
+      const querySnapShot = await getDocs(postRef);
+      const postData = querySnapShot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
@@ -56,4 +56,4 @@ const PremiumPostsPage = () => {
   );
 };
 
-export default PremiumPostsPage;
+export default GetPosts;
