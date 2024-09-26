@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../../../firebase/clientApp";
@@ -29,7 +28,7 @@ const Post_Detail_Page = ({ params }) => {
     fetchPosts();
   }, [postId]);
 
-  // Conditional rendering to avoid trying to access postDetail before it's set
+  
   if (!postDetail) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-gray-900 to-gray-700 text-white">
@@ -42,7 +41,7 @@ const Post_Detail_Page = ({ params }) => {
     <>
       <div className="min-h-screen bg-gradient-to-b from-purple-800 via-gray-900 to-black text-white">
         <div className="max-w-4xl mx-auto px-4 py-12">
-          {/* Post Image */}
+          
           {postDetail.imageUrl && (
             <div className="relative overflow-hidden rounded-lg shadow-lg">
               <img
@@ -53,8 +52,8 @@ const Post_Detail_Page = ({ params }) => {
             </div>
           )}
 
-          {/* Post Title */}
-          <h1 className="mt-6 text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-red-900">
+          
+          <h1 className="mt-6 text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-red-900">
             {postDetail.title}
           </h1>
 
