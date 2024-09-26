@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -12,6 +12,7 @@ export default function CreateNewPost() {
   const [title, setTitle] = useState();
   const [file, setFile] = useState(null);
   const [content, setContent] = useState();
+  const [user, setUser] = useState();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
 
@@ -59,9 +60,11 @@ export default function CreateNewPost() {
         title,
         imageUrl,
         content,
+        user,
         createdAt: new Date(),
       };
       const docRef = await addDoc(collection(db, "posts"), PostData);
+      setUser();
       setContent();
       setTitle();
       setFile(null);
@@ -129,6 +132,23 @@ export default function CreateNewPost() {
                 required
                 className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 text-white resize-none"
               ></textarea>
+            </div>
+            <div>
+              <label
+                htmlFor="user"
+                className="block text-sm font-medium text-gray-400 mb-1"
+              >
+                User
+              </label>
+              <input
+                type="text"
+                id="user"
+                name="user"
+                value={user}
+                onChange={(e) => setUser(e.target.value)}
+                required
+                className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 text-white resize-none"
+              />
             </div>
             <div className="flex justify-end space-x-4">
               <button
