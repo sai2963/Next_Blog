@@ -57,12 +57,12 @@ const Post_Detail_Page = ({ params }) => {
             {postDetail.title}
           </h1>
 
-          {/* Post Content */}
+          
           <div className="mt-4 text-lg leading-relaxed text-gray-300">
             <p>{postDetail.content}</p>
           </div>
 
-          {/* Footer Section for Call to Action or Related Posts */}
+          
           <div className="mt-12 border-t border-gray-600 pt-6">
             <h2 className="text-2xl font-semibold text-white">
               Related Articles
