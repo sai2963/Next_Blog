@@ -54,7 +54,7 @@ const Post_Detail_Page = ({ params }) => {
           )}
 
           {/* Post Title */}
-          <h1 className="mt-6 text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-red-900">
+          <h1 className="mt-6 text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-red-900">
             {postDetail.title}
           </h1>
 
