@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../../firebase/clientApp";
-import Link from "next/link";
+
 import Blog_Posts from "@/components/blog_posts";
 
 const GetPosts = () => {
