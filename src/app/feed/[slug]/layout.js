@@ -1,8 +1,8 @@
-export default function NewsDetailLayout({children,model}){
+export default function NewsDetailLayout({model}){
     return(
         <>
         {model}
-        {children}
+        
         </>
     )
 }
