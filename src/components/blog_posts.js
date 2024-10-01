@@ -14,7 +14,7 @@ export default function Blog_Posts({ posts }) {
                 <img
                   src={post.imageUrl}
                   alt={post.title}
-                  className="w-full h-48 object-cover"
+                  className="w-full h-48 object-fit"
                 />
               )}
               <div className="p-6">
