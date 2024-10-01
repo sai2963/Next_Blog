@@ -2,7 +2,7 @@
 import React from "react";
 import { Search, Menu, ArrowRight } from "lucide-react";
 import { useState, useEffect } from "react";
-import { collection, getDocs, addDoc } from "firebase/firestore";
+import { collection, getDocs, addDoc, query, limit } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../../firebase/clientApp";
 import Link from "next/link";
@@ -15,7 +15,7 @@ export default function HomePage() {
 
   const HandleSubmit = async (e) => {
     e.preventDefault();
-    setError(null)
+    setError(null);
     setSubscribe(true);
     try {
       const emailData = { email, createdAt: new Date() };
@@ -31,7 +31,8 @@ export default function HomePage() {
   useEffect(() => {
     const fetchPosts = async () => {
       const postRef = collection(db, "posts");
-      const querySnapShot = await getDocs(postRef);
+      const q = query(postRef, limit(3)); 
+      const querySnapShot = await getDocs(q);
       const postData = querySnapShot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
@@ -43,10 +44,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
       {/* Hero Section */}
-      <section
-        className="relative h-screen flex items-center justify-center bg-cover bg-center"
-        
-      >
+      <section className="relative h-screen flex items-center justify-center bg-cover bg-center">
         <div className="absolute inset-0 bg-black opacity-60"></div>
         <div className="relative z-10 text-center px-6">
           <header className="container mx-auto px-6 py-16 text-center">
@@ -102,20 +100,7 @@ export default function HomePage() {
 
       {/* Footer */}
       <footer className="container mx-auto px-6 py-8">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="text-2xl font-bold mb-4 md:mb-0">BlogElite</div>
-          <div className="flex space-x-6">
-            <a href="#" className="hover:text-gray-300 transition">
-              Privacy Policy
-            </a>
-            <a href="#" className="hover:text-gray-300 transition">
-              Terms of Service
-            </a>
-            <a href="#" className="hover:text-gray-300 transition">
-              Contact Us
-            </a>
-          </div>
-        </div>
+        
         <div className="mt-8 text-center text-gray-400">
           © 2024 BlogElite. All rights reserved.
         </div>

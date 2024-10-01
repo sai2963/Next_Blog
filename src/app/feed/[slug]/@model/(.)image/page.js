@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../../../firebase/clientApp";
+import { db } from "../../../../../../firebase/clientApp";
 import Link from "next/link";
 
 const Post_Detail_Page = ({ params }) => {
@@ -15,6 +15,7 @@ const Post_Detail_Page = ({ params }) => {
         const querySnapshot = await getDocs(PostRef);
         const PostData = querySnapshot.docs.map((doc) => ({
           id: doc.id,
+
           ...doc.data(),
         }));
 
@@ -29,7 +30,6 @@ const Post_Detail_Page = ({ params }) => {
     fetchPosts();
   }, [postId]);
 
-  
   if (!postDetail) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-gray-900 to-gray-700 text-white">
@@ -40,44 +40,24 @@ const Post_Detail_Page = ({ params }) => {
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-b from-purple-800 via-gray-900 to-black text-white">
-        <div className="max-w-4xl mx-auto px-4 py-12">
-          
+      <div className="min-h-screen flex flex-col items-center justify-center ">
+        <div className="m-10 p-2 bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 rounded-xl">
           {postDetail.imageUrl && (
             <div className="relative overflow-hidden rounded-lg shadow-lg">
-              <Link href={`/feed/${postId}/image`}>
               <img
                 src={postDetail.imageUrl}
                 alt={postDetail.title}
-                className="w-full h-96 object-fit transition-transform duration-500 hover:scale-105"
+                className="w-full h-96 object-cover transition-transform duration-500 hover:scale-105"
               />
-              </Link>
-              
             </div>
           )}
-
-          
-          <h1 className="mt-6 text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-red-900">
-            {postDetail.title}
-          </h1>
-
-          
-          <div className="mt-4 text-lg leading-relaxed text-gray-300">
-            <p>{postDetail.content}</p>
-          </div>
-
-          
-          <div className="mt-12 border-t border-gray-600 pt-6">
-            <h2 className="text-2xl font-semibold text-white">
-              Related Articles
-            </h2>
-            
-            
-            <p className="mt-2 text-gray-400">
-              Check out other posts in the feed.
-            </p>
-          </div>
         </div>
+        <Link
+          href={`/feed/${postId}`}
+          className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold rounded-full shadow-lg hover:from-purple-700 hover:to-indigo-700 transition-all duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-xl"
+        >
+          Back to Post
+        </Link>
       </div>
     </>
   );
