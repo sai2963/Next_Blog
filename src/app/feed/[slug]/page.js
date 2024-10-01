@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../../../firebase/clientApp";
 import Link from "next/link";
+import PremiumLoadingPage from "../loading";
 
 const Post_Detail_Page = ({ params }) => {
   const postId = params.slug;
@@ -32,9 +33,7 @@ const Post_Detail_Page = ({ params }) => {
   
   if (!postDetail) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-gray-900 to-gray-700 text-white">
-        <p className="text-lg font-semibold animate-pulse">Loading...</p>
-      </div>
+      <PremiumLoadingPage/>
     );
   }
 

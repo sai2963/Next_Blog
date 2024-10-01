@@ -102,7 +102,7 @@ export default function HomePage() {
       <footer className="container mx-auto px-6 py-8">
         
         <div className="mt-8 text-center text-gray-400">
-          © 2024 BlogElite. All rights reserved.
+          © 2024 NextBlog. All rights reserved.
         </div>
       </footer>
     </div>
