@@ -1,9 +1,11 @@
 "use client";
 import { useState } from "react";
+import { useFormStatus } from "react-dom";
 import { collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../../../firebase/clientApp";
 import { redirect, useRouter } from "next/navigation";
+import FormSubmit from "@/components/post-submit";
 
 const MY_FILE_SIZE = 5 * 1024 * 1024;
 const MAX_RETRIES = 3;
@@ -14,9 +16,10 @@ export default function CreateNewPost() {
   const [file, setFile] = useState(null);
   const [content, setContent] = useState();
   const [user, setUser] = useState();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  
   const [error, setError] = useState(null);
-  const router=useRouter();
+  const router = useRouter();
+
   const HandleFileChange = (e) => {
     const selectedfile = e.target.files[0];
     if (selectedfile) {
@@ -47,8 +50,7 @@ export default function CreateNewPost() {
   };
 
   const HandleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+    
     setError(null);
     try {
       let imageUrl = null;
@@ -65,17 +67,23 @@ export default function CreateNewPost() {
         createdAt: new Date(),
       };
       const docRef = await addDoc(collection(db, "posts"), PostData);
-      e.target.reset();
+      //e.target.reset();
+      setContent('')
+      setTitle('')
+      setUser('')
+      setError(null)
       setFile(null);
       alert(`Post added successfully! ID: ${docRef.id}`);
-      router.push('/feed');
+      router.push("/feed");
     } catch (error) {
-      setError("Failed to add Post");
+      setError(console.log(error))
+      
     } finally {
-      setIsSubmitting(false);
+      console.log('All Good');
+      
     }
-    
   };
+
   return (
     <div className="min-h-screen bg-black text-white flex items-center justify-center p-4">
       <div className="w-full max-w-md bg-gray-900 rounded-lg shadow-2xl overflow-hidden">
@@ -83,7 +91,7 @@ export default function CreateNewPost() {
           <h1 className="text-3xl font-bold mb-6 text-center text-purple-400">
             Create New Post
           </h1>
-          <form className="space-y-6" onSubmit={HandleSubmit}>
+          <form className="space-y-6" action={HandleSubmit}>
             <div>
               <label
                 htmlFor="title"
@@ -152,19 +160,7 @@ export default function CreateNewPost() {
               />
             </div>
             <div className="flex justify-end space-x-4">
-              <button
-                type="reset"
-                className="px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500"
-              >
-                Reset
-              </button>
-              <button
-                type="submit"
-                className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? "Adding..." : "Add Post"}
-              </button>
+              <FormSubmit />
             </div>
           </form>
           {error && <p className="mt-4 text-red-500">{error}</p>}
