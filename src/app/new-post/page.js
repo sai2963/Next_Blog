@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { useFormStatus } from "react-dom";
+
 import { collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../../../firebase/clientApp";
@@ -16,7 +16,7 @@ export default function CreateNewPost() {
   const [file, setFile] = useState(null);
   const [content, setContent] = useState();
   const [user, setUser] = useState();
-  
+
   const [error, setError] = useState(null);
   const router = useRouter();
 
@@ -50,13 +50,28 @@ export default function CreateNewPost() {
   };
 
   const HandleSubmit = async (e) => {
-    
     setError(null);
     try {
       let imageUrl = null;
 
       if (file) {
         imageUrl = await uploadFilewithRetry(file);
+      }
+      if (!title || title.trim().length === 0) {
+        setError("Title is required");
+        return;
+      }
+      if (!file) {
+        setError("File is required");
+        return;
+      }
+      if (!content || content.trim().length === 0) {
+        setError("Content is required");
+        return;
+      }
+      if (!user || user.trim().length === 0) {
+        setError("User is required");
+        return;
       }
 
       const PostData = {
@@ -68,19 +83,17 @@ export default function CreateNewPost() {
       };
       const docRef = await addDoc(collection(db, "posts"), PostData);
       //e.target.reset();
-      setContent('')
-      setTitle('')
-      setUser('')
-      setError(null)
+      setContent("");
+      setTitle("");
+      setUser("");
+      setError(null);
       setFile(null);
       alert(`Post added successfully! ID: ${docRef.id}`);
       router.push("/feed");
     } catch (error) {
-      setError(console.log(error))
-      
+      setError("Failed to Add Post");
     } finally {
-      console.log('All Good');
-      
+      console.log("All Good");
     }
   };
 
