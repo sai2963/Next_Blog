@@ -3,6 +3,7 @@ import { useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../../../firebase/clientApp";
+import { redirect, useRouter } from "next/navigation";
 
 const MY_FILE_SIZE = 5 * 1024 * 1024;
 const MAX_RETRIES = 3;
@@ -15,7 +16,7 @@ export default function CreateNewPost() {
   const [user, setUser] = useState();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
-
+  const router=useRouter();
   const HandleFileChange = (e) => {
     const selectedfile = e.target.files[0];
     if (selectedfile) {
@@ -64,16 +65,16 @@ export default function CreateNewPost() {
         createdAt: new Date(),
       };
       const docRef = await addDoc(collection(db, "posts"), PostData);
-      setUser();
-      setContent();
-      setTitle();
+      e.target.reset();
       setFile(null);
       alert(`Post added successfully! ID: ${docRef.id}`);
+      router.push('/feed');
     } catch (error) {
       setError("Failed to add Post");
     } finally {
       setIsSubmitting(false);
     }
+    
   };
   return (
     <div className="min-h-screen bg-black text-white flex items-center justify-center p-4">
