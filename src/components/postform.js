@@ -1,5 +1,5 @@
 import FormSubmit from "./post-submit";
-
+import { useFormState } from "react-dom";
 export default function PostForm({
   handleSubmit,
   handleFileChange,
@@ -11,6 +11,7 @@ export default function PostForm({
   setTitle,
   setUser,
 }) {
+  const[state,formaction]=useFormState(handleSubmit,{})
   return (
     <div className="min-h-screen bg-black text-white flex items-center justify-center p-4">
       <div className="w-full max-w-md bg-gray-900 rounded-lg shadow-2xl overflow-hidden">
@@ -18,7 +19,7 @@ export default function PostForm({
           <h1 className="text-3xl font-bold mb-6 text-center text-purple-400">
             Create New Post
           </h1>
-          <form className="space-y-6" action={handleSubmit}>
+          <form className="space-y-6" action={formaction}>
             <div>
               <label
                 htmlFor="title"

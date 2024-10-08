@@ -16,7 +16,6 @@ const HandleSubmit = async (
   setError,
   router
 ) => {
-    e.preventDefault();
   setError(null);
   try {
     let imageUrl = null;
@@ -49,12 +48,12 @@ const HandleSubmit = async (
       createdAt: new Date(),
     };
     const docRef = await addDoc(collection(db, "posts"), PostData);
-    e.target.reset();
-    // setContent("");
-    // setTitle("");
-    // setUser("");
-    // setError(null);
-    // setFile(null);
+    //e.target.reset();
+    setContent("");
+    setTitle("");
+    setUser("");
+    setError(null);
+    setFile(null);
     alert(`Post added successfully! ID: ${docRef.id}`);
     router.push("/feed");
   } catch (error) {
