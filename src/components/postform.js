@@ -91,6 +91,7 @@ export default function PostForm({
               <FormSubmit />
             </div>
           </form>
+          
           {error && <p className="mt-4 text-red-500">{error}</p>}
         </div>
       </div>
