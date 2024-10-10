@@ -35,7 +35,7 @@ export default function FormSubmit() {
 {
   /* <button
         type="reset"
-        className="px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500"
+        className="px-5 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500"
       >
         Reset
       </button>
