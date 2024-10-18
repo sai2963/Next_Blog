@@ -50,8 +50,8 @@ export default function Blog_Posts({ posts }) {
                 <Image
                   src={post.imageUrl}
                   alt={post.title}
-                  width={300}
-                    height={150}
+                  width={400}
+                    height={100}
                     className=" object-cover"
                   
                 />
