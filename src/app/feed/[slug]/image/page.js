@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../../../../firebase/clientApp";
 import Link from "next/link";
+import Image from "next/image";
 
 const Post_Detail_Page = ({ params }) => {
   const postId = params.slug;
@@ -44,10 +45,12 @@ const Post_Detail_Page = ({ params }) => {
           <div className="border-4 border-transparent rounded-lg bg-white p-2"></div>
           {postDetail.imageUrl && (
             <div className="relative overflow-hidden rounded-lg shadow-lg">
-              <img
+              <Image
                 src={postDetail.imageUrl}
                 alt={postDetail.title}
-                className="w-full h-96 object-cover transition-transform duration-500 hover:scale-105"
+                width={350}
+                height={200}
+                className=" object-cover transition-transform duration-500 hover:scale-105"
               />
             </div>
           )}

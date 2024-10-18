@@ -21,6 +21,9 @@ const GetPosts = () => {
     fetchPosts();
   }, []);
 
+  if(!posts){
+    throw new Error("No Posts Found");
+  }
   return (
     <>
       <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white">

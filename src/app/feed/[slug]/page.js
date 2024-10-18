@@ -4,6 +4,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../../../firebase/clientApp";
 import Link from "next/link";
 import PremiumLoadingPage from "../loading";
+import Image from "next/image";
 
 const Post_Detail_Page = ({ params }) => {
   const postId = params.slug;
@@ -45,10 +46,12 @@ const Post_Detail_Page = ({ params }) => {
           {postDetail.imageUrl && (
             <div className="relative overflow-hidden rounded-lg shadow-lg">
               <Link href={`/feed/${postId}/image`}>
-              <img
+              <Image
                 src={postDetail.imageUrl}
                 alt={postDetail.title}
-                className="w-full h-96 object-fit transition-transform duration-500 hover:scale-105"
+                width={500}
+                height={600}
+                className="w-full h-96 object-center transition-transform duration-500 hover:scale-105"
               />
               </Link>
               

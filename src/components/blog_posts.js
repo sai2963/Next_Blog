@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Heart } from "lucide-react";
 import { doc, updateDoc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase/clientApp";
+import Image from "next/image";
 
 export default function Blog_Posts({ posts }) {
   const [likedPosts, setLikedPosts] = useState({});
@@ -46,10 +47,13 @@ export default function Blog_Posts({ posts }) {
           >
             <Link href={`feed/${post.id}`}>
               {post.imageUrl && (
-                <img
+                <Image
                   src={post.imageUrl}
                   alt={post.title}
-                  className="w-full h-48 object-cover"
+                  width={300}
+                    height={150}
+                    className=" object-cover"
+                  
                 />
               )}
               <div className="p-6">

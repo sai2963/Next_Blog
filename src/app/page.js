@@ -7,12 +7,13 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../../firebase/clientApp";
 import Link from "next/link";
 import Blog_Posts from "@/components/blog_posts";
+import { ChakraProvider } from "@chakra-ui/react";
 export default function HomePage() {
   const [posts, setPosts] = useState([]);
   const [email, setEmail] = useState();
   const [subscribe, setSubscribe] = useState(false);
   const [error, setError] = useState(null);
-
+  
   const HandleSubmit = async (e) => {
     e.preventDefault();
     setError(null);

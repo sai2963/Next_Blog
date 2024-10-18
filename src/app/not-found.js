@@ -14,7 +14,7 @@ const NotFoundPage = () => {
         </h2>
         <p className="mt-4 text-gray-300 text-lg">
           The page you are looking for might have been removed or temporarily unavailable.
-        </p>
+        </p>  
 
         {/* Call to Action */}
         <div className="mt-8">
