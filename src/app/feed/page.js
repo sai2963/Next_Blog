@@ -1,40 +1,30 @@
-"use client";
-import { useState, useEffect } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../../firebase/clientApp";
 
+import { Suspense } from 'react';
+import GetPosts from '@/components/getposts';
 import Blog_Posts from "@/components/blog_posts";
+import PremiumLoadingPage from './loading';
 
-const GetPosts = () => {
-  const [posts, setPosts] = useState([]);
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const postRef = collection(db, "posts");
-      const querySnapShot = await getDocs(postRef);
-      const postData = querySnapShot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setPosts(postData);
-    };
-    fetchPosts();
-  }, []);
-
-  if(!posts){
-    throw new Error("No Posts Found");
-  }
+const Posts = () => {
   return (
-    <>
-      <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white">
-        <div className="max-w-5xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl font-bold mb-8 text-center">All Posts</h1>
-
-          <Blog_Posts posts={posts} />
-        </div>
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white">
+      <div className="max-w-5xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+        <h1 className="text-4xl font-bold mb-8 text-center">All Posts</h1>
+        <Suspense fallback={<PremiumLoadingPage/>}>
+          <PostsContent />
+        </Suspense>
       </div>
-    </>
+    </div>
   );
 };
 
-export default GetPosts;
+const PostsContent =async () => {
+  const posts = await GetPosts;
+  return <Blog_Posts posts={posts} />;
+};
+
+export default Posts;
+
+export const metadata = {
+  title: "Posts",
+  description: "Here you can get all the blogData",
+};

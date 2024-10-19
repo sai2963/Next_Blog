@@ -1,3 +1,4 @@
+'use client'
 import { useState } from "react";
 import Link from "next/link";
 import { Heart } from "lucide-react";
@@ -28,6 +29,7 @@ export default function Blog_Posts({ posts }) {
         }));
 
         // Update the likes count in the posts array
+        
         posts = posts.map((post) =>
           post.id === postId ? { ...post, likes: newLikes } : post
         );
@@ -36,9 +38,16 @@ export default function Blog_Posts({ posts }) {
       console.error("Error updating likes:", error);
     }
   };
+  function imageloader(config){
+    console.log(config);
+    return config.src;
+    
+  }
 
   return (
     <>
+    {console.log(posts)
+    }
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {posts.map((post) => (
           <div
@@ -48,12 +57,13 @@ export default function Blog_Posts({ posts }) {
             <Link href={`feed/${post.id}`}>
               {post.imageUrl && (
                 <Image
+                loader={imageloader}
                   src={post.imageUrl}
                   alt={post.title}
                   width={400}
                     height={100}
                     className=" object-cover"
-                  
+                    quality={50}
                 />
               )}
               <div className="p-6">
