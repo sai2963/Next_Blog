@@ -13,7 +13,7 @@ export default function HomePage() {
   const [email, setEmail] = useState();
   const [subscribe, setSubscribe] = useState(false);
   const [error, setError] = useState(null);
-  
+
   const HandleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
@@ -32,14 +32,19 @@ export default function HomePage() {
   useEffect(() => {
     const fetchPosts = async () => {
       const postRef = collection(db, "posts");
-      const q = query(postRef, limit(3)); 
+      const q = query(postRef, limit(3));
       const querySnapShot = await getDocs(q);
-      const postData = querySnapShot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
+      const postData = querySnapShot.docs.map((doc) => {
+        const data = doc.data();
+        return {
+          id: doc.id,
+          ...data,
+          createdAt: data.createdAt ? data.createdAt.toMillis() : null,
+        };
+      });
       setPosts(postData);
     };
+
     fetchPosts();
   }, []);
   return (
@@ -101,7 +106,7 @@ export default function HomePage() {
 
       {/* Footer */}
       <footer className="container mx-auto px-6 py-8">
-        
+
         <div className="mt-8 text-center text-gray-400">
           © 2024 NextBlog. All rights reserved.
         </div>
