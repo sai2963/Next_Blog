@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { useState } from "react";
 import Link from "next/link";
 import { Heart } from "lucide-react";
@@ -29,7 +29,6 @@ export default function Blog_Posts({ posts }) {
         }));
 
         // Update the likes count in the posts array
-        
         posts = posts.map((post) =>
           post.id === postId ? { ...post, likes: newLikes } : post
         );
@@ -38,16 +37,21 @@ export default function Blog_Posts({ posts }) {
       console.error("Error updating likes:", error);
     }
   };
-  function imageloader(config){
+
+  function imageloader(config) {
     console.log(config);
     return config.src;
-    
+  }
+
+  function formatDate(milliseconds) {
+    if (milliseconds) {
+      return new Date(milliseconds).toLocaleDateString();
+    }
+    return 'Invalid Date';
   }
 
   return (
     <>
-    {console.log(posts)
-    }
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {posts.map((post) => (
           <div
@@ -57,13 +61,13 @@ export default function Blog_Posts({ posts }) {
             <Link href={`feed/${post.id}`}>
               {post.imageUrl && (
                 <Image
-                loader={imageloader}
+                  loader={imageloader}
                   src={post.imageUrl}
                   alt={post.title}
                   width={400}
-                    height={100}
-                    className=" object-cover"
-                    quality={50}
+                  height={100}
+                  className=" object-cover"
+                  quality={50}
                 />
               )}
               <div className="p-6">
@@ -74,7 +78,7 @@ export default function Blog_Posts({ posts }) {
                 <b className="text-gray-400 mb-4">{post.user}</b>
                 <div className="flex justify-between items-center">
                   <span className="text-gray-400 text-sm">
-                    {new Date(post.createdAt.toDate()).toLocaleDateString()}
+                    {formatDate(post.createdAt)}
                   </span>
                   <button className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
                     Read More

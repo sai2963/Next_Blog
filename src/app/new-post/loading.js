@@ -9,7 +9,7 @@ const PremiumLoadingPage = () => {
       </div>
       <h2 className="text-2xl font-bold mb-4">Loading Your Experience</h2>
       <p className="text-indigo-300 text-center max-w-md">
-        Please wait while we prepare your premium content...
+        Please wait while we prepare your  content...
       </p>
     </div>
   );
